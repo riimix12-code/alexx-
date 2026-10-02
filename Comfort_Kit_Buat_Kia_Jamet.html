@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Comfort Kit Buat Kia Jamet 🧸✨</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warmPeach: '#FFD1DC',
+                        cozyLavender: '#E6E6FA',
+                        softRose: '#FFB6C1',
+                        deepBerry: '#3B152B',
+                        warmCream: '#FFF5E1',
+                        lightBerry: '#5C2243'
+                    },
+                    fontFamily: {
+                        cute: ['"Fredoka"', 'cursive'],
+                        romantic: ['"Comfortaa"', 'cursive'],
+                        sans: ['"Poppins"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome & Canvas-Confetti -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .glass-card-dark {
+            background: rgba(40, 17, 43, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 182, 193, 0.25);
+        }
+
+        /* Custom Glows */
+        .glow-text {
+            text-shadow: 0 0 15px rgba(255, 182, 193, 0.8), 0 0 30px rgba(230, 100, 150, 0.5);
+        }
+        .glow-box {
+            box-shadow: 0 0 25px rgba(255, 182, 193, 0.25);
+        }
+
+        /* 3D Envelope Styling */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #5C2243;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+        @media (min-width: 640px) {
+            .envelope {
+                width: 420px;
+                height: 270px;
+            }
+        }
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+        .envelope .lid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid #702852;
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out 0.3s, z-index 0.2s ease-in-out 0.3s;
+            z-index: 3;
+        }
+        @media (min-width: 640px) {
+            .envelope .lid {
+                border-left: 210px solid transparent;
+                border-right: 210px solid transparent;
+                border-top: 145px solid #702852;
+            }
+        }
+        .envelope .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid #853162;
+            border-right: 150px solid #853162;
+            border-bottom: 100px solid #9A3972;
+            border-top: 100px solid transparent;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 3;
+        }
+        @media (min-width: 640px) {
+            .envelope .pocket {
+                border-left: 210px solid #853162;
+                border-right: 210px solid #853162;
+                border-bottom: 135px solid #9A3972;
+                border-top: 135px solid transparent;
+            }
+        }
+        .envelope .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            background: #FFF5E1;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.6s ease-in-out, z-index 0.1s ease-in-out 0.3s;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .envelope.open .lid {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+        .envelope.open .letter {
+            transform: translateY(-130px);
+            z-index: 4;
+            height: 380px;
+            overflow-y: auto;
+        }
+        @media (min-width: 640px) {
+            .envelope.open .letter {
+                transform: translateY(-160px);
+                height: 440px;
+            }
+        }
+
+        /* Card Flip Animations */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Floating Animation */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 182, 193, 0.8)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(255, 182, 193, 1)); }
+        }
+        .animate-heart-pulse {
+            animation: heartPulse 1.8s infinite ease-in-out;
+        }
+
+        /* Custom Floating Puk Puk Icon Animation */
+        @keyframes riseAndFade {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(1.4); }
+        }
+        .animate-puk-puk {
+            animation: riseAndFade 1.2s forwards ease-out;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-deepBerry to-slate-900 text-slate-100 font-sans min-h-screen overflow-x-hidden relative selection:bg-rose-400 selection:text-white">
+
+    <!-- Background Canvas for Floating Sparkles & Soft Clouds -->
+    <canvas id="bgCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Celebration Fireworks/Hearts Canvas (Overlay) -->
+    <canvas id="celebrationCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-50 hidden"></canvas>
+
+    <!-- Fixed Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-40 glass-card-dark px-4 py-3 border-b border-rose-400/20">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 text-rose-300 font-cute text-xl font-bold tracking-wide hover:text-rose-200 transition-colors">
+                <i class="fa-solid fa-heart-pulse text-rose-400 animate-pulse"></i>
+                <span id="navBrand">Comfort Kit Kia Jamet 🧸</span>
+            </a>
+            
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Ambient Relax Audio Button -->
+                <button id="musicBtn" title="Putar Suara Penenang" class="px-3 py-1.5 rounded-full glass-card hover:bg-rose-500/20 text-rose-200 border border-rose-300/30 text-xs sm:text-sm flex items-center gap-2 transition-all transform active:scale-95">
+                    <i id="musicIcon" class="fa-solid fa-cloud-moon text-rose-300"></i>
+                    <span id="musicText" class="hidden sm:inline">Audio Penenang: OFF</span>
+                </button>
+
+                <!-- Edit Customization Button -->
+                <button id="openEditModalBtn" title="Edit Pesan & Panggilan" class="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs sm:text-sm font-medium shadow-lg shadow-rose-900/30 flex items-center gap-1.5 transition-all transform hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span class="hidden sm:inline">Edit Detail</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 pt-20 pb-16 px-4 max-w-4xl mx-auto space-y-20">
+
+        <!-- HERO SECTION -->
+        <section class="min-h-[85vh] flex flex-col justify-center items-center text-center pt-6 relative">
+            
+            <!-- Comfort Pill Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-rose-300/30 text-rose-200 text-xs sm:text-sm font-medium mb-6 animate-float">
+                <i class="fa-solid fa-notes-medical text-amber-300"></i>
+                <span>Pertolongan Pertama Saat Dapet 🩹</span>
+                <i class="fa-solid fa-heart text-rose-400"></i>
+            </div>
+
+            <!-- Hero Main Title -->
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-cute text-rose-200 mb-4 glow-text leading-tight">
+                Emergency Comfort Kit <br>
+                Buat <span id="partnerNameDisplay" class="text-rose-400 underline decoration-rose-400/40 decoration-wavy">Kia Jamet</span> 🧸✨
+            </h1>
+
+            <p id="subGreetingDisplay" class="text-slate-300 max-w-xl text-sm sm:text-base mb-8 font-light px-2 leading-relaxed">
+                Website khusus penenang perut mules & mood booster Kia Jamet hari ini! Sini aku puk-puk virtual dan jagain Kia Jamet biarpun dari jauh! 💆‍♀️
+            </p>
+
+            <!-- Interactive "Puk Puk Perut Virtual" Counter Box -->
+            <div class="glass-card-dark p-6 sm:p-8 rounded-3xl border border-rose-400/30 max-w-md w-full mb-8 glow-box relative overflow-hidden">
+                <div class="absolute -right-8 -bottom-8 text-rose-500/10 text-8xl pointer-events-none">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+
+                <h2 class="text-rose-300 font-medium text-xs tracking-widest uppercase mb-2 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
+                    <span>Fitur Pengusap Perut Virtual</span>
+                </h2>
+
+                <div class="my-4 relative">
+                    <span id="pukCountDisplay" class="text-5xl sm:text-6xl font-cute font-bold text-rose-300 block">0</span>
+                    <span class="text-xs text-rose-200/80 uppercase tracking-wider block mt-1">Kali Puk-Puk Diterima</span>
+
+                    <!-- Area where floating +1 / Emojis spawn -->
+                    <div id="pukSpawnArea" class="absolute inset-0 pointer-events-none"></div>
+                </div>
+
+                <button id="pukPukBtn" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-500 text-white font-cute font-bold text-base sm:text-lg shadow-xl shadow-rose-950/60 flex items-center justify-center gap-3 transition-all transform hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-hand-sparkles"></i>
+                    <span>Puk-Puk Perut Kia Jamet 💆‍♀️</span>
+                </button>
+
+                <p class="text-xs text-slate-400 mt-3 italic">
+                    Tekan tombol berkali-kali sampai perut Kia Jamet agak enakan! ❤️
+                </p>
+            </div>
+
+            <!-- Action Navigation Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-md">
+                <a href="#envelopeSection" class="w-full sm:w-1/2 py-3 rounded-full bg-slate-900/80 hover:bg-slate-800 text-rose-200 border border-rose-400/30 text-sm font-medium flex items-center justify-center gap-2 transition-all">
+                    <span>Baca Surat Comfort</span>
+                    <i class="fa-solid fa-envelope-open-text text-rose-400"></i>
+                </a>
+                <a href="#toolkitSection" class="w-full sm:w-1/2 py-3 rounded-full glass-card hover:bg-rose-500/20 text-rose-200 border border-rose-400/30 text-sm font-medium flex items-center justify-center gap-2 transition-all">
+                    <span>Tips Sakit Perut</span>
+                    <i class="fa-solid fa-kit-medical text-rose-300"></i>
+                </a>
+            </div>
+
+            <!-- Down Arrow -->
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-rose-300/50 animate-bounce">
+                <i class="fa-solid fa-chevron-down text-lg"></i>
+            </div>
+        </section>
+
+
+        <!-- PERIOD COMFORT TOOLKIT SECTION -->
+        <section id="toolkitSection" class="py-6">
+            <div class="text-center mb-10">
+                <span class="text-rose-300 font-cute text-lg">Pillars of Care</span>
+                <h2 class="text-2xl sm:text-4xl font-cute text-rose-200 glow-text mt-1">Langkah Bikin Perut Kia Jamet Enakan 🧰</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2">Checklist wajib biar perut mulesnya berkurang!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Card 1: Air Hangat -->
+                <div class="glass-card-dark p-5 rounded-2xl border border-rose-500/20 flex items-start gap-4 hover:border-rose-400/40 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 text-2xl flex-shrink-0">
+                        ☕
+                    </div>
+                    <div>
+                        <h3 class="font-cute text-lg text-rose-200">Minum Air Hangat / Teh</h3>
+                        <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                            Udah minum air hangat belum Kia Jamet? Biar otot perutnya rileks dan rasa melilitnya agak berkurang!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Kompres Perut -->
+                <div class="glass-card-dark p-5 rounded-2xl border border-rose-500/20 flex items-start gap-4 hover:border-rose-400/40 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-400/30 flex items-center justify-center text-rose-300 text-2xl flex-shrink-0">
+                        ♨️
+                    </div>
+                    <div>
+                        <h3 class="font-cute text-lg text-rose-200">Kompres Perut Warm</h3>
+                        <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                            Tempelin botol hangat atau heating pad di perut bawah Kia Jamet. Bikin kramnya makin adem!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Cokelat & Jajan -->
+                <div class="glass-card-dark p-5 rounded-2xl border border-rose-500/20 flex items-start gap-4 hover:border-rose-400/40 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-pink-500/20 border border-pink-400/30 flex items-center justify-center text-pink-300 text-2xl flex-shrink-0">
+                        🍫
+                    </div>
+                    <div>
+                        <h3 class="font-cute text-lg text-rose-200">Suplai Cokelat & Jajan</h3>
+                        <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                            Boleh ngemil cokelat, ice cream, atau makanan kesukaan Kia Jamet hari ini! Mood booster nomor satu.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Rebahan Mode ON -->
+                <div class="glass-card-dark p-5 rounded-2xl border border-rose-500/20 flex items-start gap-4 hover:border-rose-400/40 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center text-purple-300 text-2xl flex-shrink-0">
+                        🛌
+                    </div>
+                    <div>
+                        <h3 class="font-cute text-lg text-rose-200">Rebahan Mode ON</h3>
+                        <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                            Ga usah mikir hal-hal yang berat dulu. Kia Jamet fokus tiduran, peluk guling, dan istirahat total ya!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECRET COMFORT ENVELOPE SECTION -->
+        <section id="envelopeSection" class="py-8 flex flex-col items-center justify-center text-center">
+            <div class="mb-8">
+                <span class="text-rose-300 font-cute text-lg">Pesan Khusus Penenang</span>
+                <h2 class="text-2xl sm:text-4xl font-cute text-rose-200 glow-text mt-1">Surat Penenang Kia Jamet ✉️</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-1">Klik amplop di bawah ini untuk membuka pesan dari aku!</p>
+            </div>
+
+            <!-- 3D Envelope Container -->
+            <div class="envelope-wrapper my-6">
+                <div id="comfortEnvelope" class="envelope">
+                    <div class="lid"></div>
+                    <div class="pocket"></div>
+                    <div id="envelopeSeal" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-rose-600 border-2 border-rose-300 flex items-center justify-center shadow-lg text-white text-lg animate-heart-pulse">
+                        <i class="fa-solid fa-paw"></i>
+                    </div>
+                    <!-- Letter content -->
+                    <div class="letter text-slate-800 text-left font-sans flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center border-b border-rose-200 pb-2 mb-2">
+                                <span class="font-cute text-lg font-bold text-rose-900">Halo <span id="letterToDisplay">Kia Jamet</span>! 🧸</span>
+                                <span class="text-[10px] text-rose-600 font-semibold bg-rose-100 px-2 py-0.5 rounded-full">Comfort Note</span>
+                            </div>
+                            <div id="letterContentDisplay" class="text-xs text-slate-700 leading-relaxed space-y-2 font-normal overflow-y-auto max-h-[260px] sm:max-h-[310px] pr-1">
+                                Puk puk Kia Jamet! Aku tahu perutnya lagi sakit banget dan rasanya ga enak banget hari ini. Kia Jamet ga sendiri ya... Kalo mau ngomel, mau menangis, atau mau marah-marah, marahin aku aja! Pokoknya Kia Jamet harus banyak istirahat, jangan cape-cape. Aku siap grak turutin kemauan Kia Jamet hari ini! 💖
+                            </div>
+                        </div>
+                        <div class="border-t border-rose-200 pt-2 mt-2 text-right">
+                            <span class="text-[10px] text-slate-500 block">Pengusap perut profesional,</span>
+                            <span id="letterFromDisplay" class="font-cute text-sm font-bold text-rose-900">Dari Aku</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p id="envelopeHint" class="text-xs text-rose-300/80 mt-4 bg-rose-950/40 px-4 py-2 rounded-full border border-rose-500/20 inline-block">
+                💡 Sentuh/Klik amplop untuk membuka & membaca surat
+            </p>
+        </section>
+
+
+        <!-- MOOD BOOSTER FLIP CARDS SECTION -->
+        <section id="boosterSection" class="py-8">
+            <div class="text-center mb-10">
+                <span class="text-rose-300 font-cute text-lg">Janji & Hak Istimewa</span>
+                <h2 class="text-2xl sm:text-4xl font-cute text-rose-200 glow-text mt-1">5 Hal Biar Perut Kia Jamet Agak Mendingan 💖</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-1">Klik kartu di bawah ini untuk melihat hak istimewa Kia Jamet hari ini!</p>
+            </div>
+
+            <!-- Flip Cards Grid -->
+            <div id="boosterGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Cards will be populated dynamically -->
+            </div>
+        </section>
+
+
+        <!-- INTERACTIVE CRAMP QUESTION SECTION -->
+        <section id="questionSection" class="py-12 flex flex-col items-center justify-center text-center">
+            <div class="glass-card-dark p-6 sm:p-10 rounded-3xl border border-rose-400/40 max-w-xl w-full glow-box relative overflow-hidden">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center text-2xl text-white shadow-lg animate-heart-pulse">
+                    <i class="fa-solid fa-temperature-empty"></i>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-cute text-rose-200 mb-3 glow-text">
+                    Kia Jamet Masih Sakit Perut Banget Ga? 🥺
+                </h2>
+                
+                <p class="text-slate-300 text-xs sm:text-sm mb-8 max-w-sm mx-auto">
+                    Jawab jujur ya Kia Jamet! Biar aku tahu harus kirim bantuan apa sekarang!
+                </p>
+
+                <!-- Interactive Buttons Container -->
+                <div class="relative min-h-[120px] flex flex-col sm:flex-row items-center justify-center gap-4" id="buttonContainer">
+                    <!-- Option A: Better -->
+                    <button id="betterBtn" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-cute font-bold text-sm sm:text-base shadow-lg transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2 z-20">
+                        <i class="fa-solid fa-face-smile"></i>
+                        <span>Udah lumayan mendingan 🥰</span>
+                    </button>
+
+                    <!-- Option B: Still Hurts (Dodges Touch / Cursor) -->
+                    <button id="stillHurtsBtn" class="px-6 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-rose-200 text-xs sm:text-sm border border-rose-400/30 font-medium transition-all z-20 flex items-center gap-2">
+                        <span>Masih sakit banget!! 😭</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BETTER / HUG MODAL -->
+    <div id="betterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
+        <div class="glass-card-dark border-2 border-rose-400 p-6 sm:p-8 rounded-3xl max-w-md w-full text-center relative overflow-hidden shadow-2xl glow-box transform scale-90 transition-transform duration-300">
+            <div class="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-3xl text-white shadow-lg animate-bounce">
+                🤗
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-cute text-rose-200 mb-2 glow-text">ALHAMDULILLAH! 🎉</h3>
+            <p class="text-slate-200 text-xs sm:text-sm my-3 leading-relaxed">
+                Seneng banget dengernya kalo perut <span class="text-rose-300 font-bold" id="betterPartnerName">Kia Jamet</span> udah agak enakan! Tapi tetep jangan terlalu cape-cape dulu ya hari ini.
+            </p>
+            <div class="my-4 p-3 rounded-xl bg-rose-900/30 border border-rose-400/30 text-xs text-rose-200 italic">
+                "Virtual Hug dikirimkan! Semoga besok perut Kia Jamet udah sembuh total 100%!" ✨
+            </div>
+            <button id="closeBetterModalBtn" class="w-full py-3 rounded-full bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-cute font-bold text-sm shadow-lg transition-all">
+                Peluk Dulu Sini! 🤗
+            </button>
+        </div>
+    </div>
+
+    <!-- TREAT / STILL HURTS MODAL -->
+    <div id="treatModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
+        <div class="glass-card-dark border-2 border-amber-400 p-6 sm:p-8 rounded-3xl max-w-md w-full text-center relative overflow-hidden shadow-2xl glow-box transform scale-90 transition-transform duration-300">
+            <div class="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-tr from-amber-500 to-rose-600 flex items-center justify-center text-3xl text-white shadow-lg animate-bounce">
+                🛵💨
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-cute text-rose-200 mb-2 glow-text">EMERGENCY FOOD TREAT! 🍫</h3>
+            <p class="text-slate-200 text-xs sm:text-sm my-3 leading-relaxed">
+                Sini-sini aku beliin makanan enak + usap perut virtual! Kemauan Kia Jamet langsung diturutin detik ini juga!
+            </p>
+            <p class="text-xs text-amber-300 font-medium my-2 bg-amber-950/50 p-2.5 rounded-xl border border-amber-400/30">
+                Sebutkan mau jajan apa sekarang: Boba, Cokelat, Seblak halus, atau Ice Cream? Aku siap pesanin! 🛵✨
+            </p>
+            <button id="closeTreatModalBtn" class="w-full py-3 mt-2 rounded-full bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-white font-cute font-bold text-sm shadow-lg transition-all">
+                Siap, Beliin Makanan Enak! 😋
+            </button>
+        </div>
+    </div>
+
+    <!-- EDIT PERSONALIZATION MODAL -->
+    <div id="editModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
+        <div class="glass-card-dark border border-rose-400/30 p-6 rounded-3xl max-w-lg w-full text-left relative overflow-hidden shadow-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center pb-3 border-b border-rose-500/20 mb-4">
+                <h3 class="text-lg font-cute font-bold text-rose-200 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-rose-400"></i>
+                    <span>Personalisasi Pesan Penenang</span>
+                </h3>
+                <button id="closeEditModalBtn" class="text-slate-400 hover:text-white text-lg p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="personalizationForm" class="space-y-3.5 overflow-y-auto pr-1 no-scrollbar flex-1">
+                <div>
+                    <label class="block text-xs font-medium text-rose-300 uppercase tracking-wider mb-1">Panggilan Pacar (Default: Kia Jamet)</label>
+                    <input type="text" id="inputPartnerName" class="w-full px-3.5 py-2 rounded-xl bg-slate-900/80 border border-rose-500/30 text-white focus:outline-none focus:border-rose-400 text-xs sm:text-sm" placeholder="Contoh: Kia Jamet">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-rose-300 uppercase tracking-wider mb-1">Nama Kamu (Pengirim)</label>
+                    <input type="text" id="inputYourName" class="w-full px-3.5 py-2 rounded-xl bg-slate-900/80 border border-rose-500/30 text-white focus:outline-none focus:border-rose-400 text-xs sm:text-sm" placeholder="Contoh: Pengusap Perut Pro">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-rose-300 uppercase tracking-wider mb-1">Isi Surat Penenang Perut Mules</label>
+                    <textarea id="inputLetterContent" rows="5" class="w-full px-3.5 py-2 rounded-xl bg-slate-900/80 border border-rose-500/30 text-white focus:outline-none focus:border-rose-400 text-xs sm:text-sm" placeholder="Tuliskan kata-kata penghiburmu..."></textarea>
+                </div>
+
+                <div class="pt-3 flex gap-2">
+                    <button type="button" id="resetDefaultsBtn" class="px-3.5 py-2 rounded-xl border border-slate-600 text-slate-300 hover:bg-slate-800 text-xs font-medium transition-colors">
+                        Reset Default
+                    </button>
+                    <button type="submit" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-medium text-xs sm:text-sm shadow-lg transition-all">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        // DEFAULT DATA
+        const DEFAULT_DATA = {
+            partnerName: "Kia Jamet",
+            yourName: "Pengusap Perut Pro",
+            letterContent: "Puk puk Kia Jamet! Aku tahu perutnya lagi sakit banget dan rasanya ga enak banget hari ini. Kia Jamet ga sendiri ya... Kalo mau ngomel, mau menangis, atau mau marah-marah, marahin aku aja! Pokoknya Kia Jamet harus banyak istirahat, jangan cape-cape. Aku siap grak turutin kemauan Kia Jamet hari ini! 💖",
+            boosterCards: [
+                {
+                    icon: "fa-hand-sparkles",
+                    title: "Puk-Puk Tanpa Batas",
+                    desc: "Kia Jamet berhak minta usap perut atau puk-puk virtual sepuasnya seharian ini!"
+                },
+                {
+                    icon: "fa-headset",
+                    title: "Siap Dengerin Curhat",
+                    desc: "Kalo Kia Jamet ngerasa mual atau badmood, aku siap dengerin omelan Kia Jamet tanpa debat."
+                },
+                {
+                    icon: "fa-utensils",
+                    title: "Jaminan Jajan Enak",
+                    desc: "Voucher jajan makanan favorit Kia Jamet langsung di-acc tanpa syarat!"
+                },
+                {
+                    icon: "fa-face-rolling-eyes",
+                    title: "Bebas Marah-Marah",
+                    desc: "Kia Jamet bebas ngomel atau jutek hari ini, dimaafin 1000% tanpa diprotes!"
+                },
+                {
+                    icon: "fa-bed",
+                    title: "Bebas Tugas Heavy",
+                    desc: "Semua urusan pusing ditunda dulu, Kia Jamet wajib rebahan santai!"
+                },
+                {
+                    icon: "fa-heart-circle-bolt",
+                    title: "Peluk Virtual 24/7",
+                    desc: "Transfer energi positif dan kasih sayang penuh buat Kia Jamet yang lagi berjuang lawan kram!"
+                }
+            ]
+        };
+
+        // Load or default
+        let appData = JSON.parse(localStorage.getItem('kia_comfort_data_v1')) || DEFAULT_DATA;
+
+        function saveData() {
+            localStorage.setItem('kia_comfort_data_v1', JSON.stringify(appData));
+            updateDOM();
+        }
+
+        function updateDOM() {
+            document.getElementById('partnerNameDisplay').innerText = appData.partnerName;
+            document.getElementById('letterToDisplay').innerText = appData.partnerName;
+            document.getElementById('betterPartnerName').innerText = appData.partnerName;
+            document.getElementById('letterFromDisplay').innerText = appData.yourName;
+
+            const formattedLetter = appData.letterContent.replace(/\n/g, '<br>');
+            document.getElementById('letterContentDisplay').innerHTML = formattedLetter;
+
+            renderBoosterCards();
+        }
+
+        function renderBoosterCards() {
+            const container = document.getElementById('boosterGrid');
+            container.innerHTML = '';
+
+            appData.boosterCards.forEach((item) => {
+                const flipCard = document.createElement('div');
+                flipCard.className = "perspective-1000 h-44 cursor-pointer group";
+                flipCard.innerHTML = `
+                    <div class="card-inner relative w-full h-full transform-style-3d transition-transform duration-700 rounded-2xl shadow-md">
+                        <!-- Front Face -->
+                        <div class="absolute inset-0 backface-hidden glass-card-dark border border-rose-400/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center group-hover:border-rose-400">
+                            <div class="w-12 h-12 rounded-full bg-rose-500/20 border border-rose-400/30 flex items-center justify-center text-xl text-rose-300 mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            <h3 class="font-cute text-base text-rose-200">${item.title}</h3>
+                            <span class="text-[10px] text-rose-300/70 mt-2 flex items-center gap-1">
+                                <span>Sentuh untuk buka</span>
+                                <i class="fa-solid fa-hand-pointer text-[10px] animate-bounce"></i>
+                            </span>
+                        </div>
+                        <!-- Back Face -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-rose-950 to-slate-900 border-2 border-rose-400/60 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg">
+                            <p class="text-xs text-slate-200 leading-relaxed font-light">${item.desc}</p>
+                            <i class="fa-solid fa-heart text-rose-400 text-xs mt-2"></i>
+                        </div>
+                    </div>
+                `;
+
+                flipCard.addEventListener('click', () => {
+                    const inner = flipCard.querySelector('.card-inner');
+                    inner.classList.toggle('rotate-y-180');
+                });
+
+                container.appendChild(flipCard);
+            });
+        }
+
+
+        let pukCount = parseInt(localStorage.getItem('kia_puk_count')) || 0;
+        document.getElementById('pukCountDisplay').innerText = pukCount;
+
+        const pukPukBtn = document.getElementById('pukPukBtn');
+        const pukSpawnArea = document.getElementById('pukSpawnArea');
+
+        // Audio Context for pop sound
+        let audioCtx = null;
+
+        function playPopSound() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400 + Math.random() * 200, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.13);
+            } catch (e) {}
+        }
+
+        pukPukBtn.addEventListener('click', () => {
+            pukCount++;
+            document.getElementById('pukCountDisplay').innerText = pukCount;
+            localStorage.setItem('kia_puk_count', pukCount);
+
+            playPopSound();
+
+            // Spawn floating text/icons
+            const emojis = ['💆‍♀️', '🧸', '🍫', '✨', '💖', '🌸', '+1 Puk'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+            const floatElem = document.createElement('div');
+            floatElem.className = 'absolute font-cute font-bold text-rose-300 text-sm sm:text-base pointer-events-none animate-puk-puk';
+            floatElem.innerText = randomEmoji;
+            
+            // Random horizontal positioning
+            const leftPos = 20 + Math.random() * 60;
+            floatElem.style.left = leftPos + '%';
+            floatElem.style.bottom = '20px';
+
+            pukSpawnArea.appendChild(floatElem);
+
+            setTimeout(() => {
+                floatElem.remove();
+            }, 1200);
+        });
+
+
+        // 3D Envelope Animation
+        const envelope = document.getElementById('comfortEnvelope');
+        const envelopeHint = document.getElementById('envelopeHint');
+        
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('open');
+            if (envelope.classList.contains('open')) {
+                envelopeHint.innerText = "✨ Klik amplop lagi untuk menutup surat";
+            } else {
+                envelopeHint.innerText = "💡 Sentuh/Klik amplop untuk membuka & membaca surat";
+            }
+        });
+
+
+        const stillHurtsBtn = document.getElementById('stillHurtsBtn');
+        const betterBtn = document.getElementById('betterBtn');
+        let dodgeCount = 0;
+
+        function dodgeButton() {
+            dodgeCount++;
+            const x = Math.random() * (window.innerWidth - 140) - (window.innerWidth / 2) + 70;
+            const y = Math.random() * 160 - 80;
+
+            stillHurtsBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+            // Scale "Udah Mendingan" button bigger
+            const betterScale = 1 + (dodgeCount * 0.08);
+            betterBtn.style.transform = `scale(${betterScale})`;
+
+            if (dodgeCount > 3) {
+                stillHurtsBtn.innerText = "Masih Mules? 🥺";
+            }
+            if (dodgeCount > 6) {
+                stillHurtsBtn.innerText = "Sini Beliin Jajan! 🛵";
+            }
+        }
+
+        stillHurtsBtn.addEventListener('mouseenter', dodgeButton);
+        stillHurtsBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            dodgeButton();
+            // Trigger treat modal if tapped repeatedly
+            if (dodgeCount >= 3) {
+                showTreatModal();
+            }
+        });
+
+        stillHurtsBtn.addEventListener('click', () => {
+            showTreatModal();
+        });
+
+        betterBtn.addEventListener('click', () => {
+            triggerHeartsShower();
+            showBetterModal();
+        });
+
+
+        const betterModal = document.getElementById('betterModal');
+        const closeBetterModalBtn = document.getElementById('closeBetterModalBtn');
+        const treatModal = document.getElementById('treatModal');
+        const closeTreatModalBtn = document.getElementById('closeTreatModalBtn');
+
+        function showBetterModal() {
+            betterModal.classList.remove('hidden');
+            setTimeout(() => {
+                betterModal.classList.remove('opacity-0');
+                betterModal.querySelector('div').classList.remove('scale-90');
+                betterModal.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        closeBetterModalBtn.addEventListener('click', () => {
+            betterModal.classList.add('opacity-0');
+            betterModal.querySelector('div').classList.remove('scale-100');
+            betterModal.querySelector('div').classList.add('scale-90');
+            setTimeout(() => betterModal.classList.add('hidden'), 300);
+        });
+
+        function showTreatModal() {
+            treatModal.classList.remove('hidden');
+            setTimeout(() => {
+                treatModal.classList.remove('opacity-0');
+                treatModal.querySelector('div').classList.remove('scale-90');
+                treatModal.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        closeTreatModalBtn.addEventListener('click', () => {
+            treatModal.classList.add('opacity-0');
+            treatModal.querySelector('div').classList.remove('scale-100');
+            treatModal.querySelector('div').classList.add('scale-90');
+            setTimeout(() => treatModal.classList.add('hidden'), 300);
+        });
+
+        function triggerHeartsShower() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#FFB6C1', '#FFD1DC', '#E6E6FA']
+                });
+            }
+        }
+
+
+        // Customization Modal Logic
+        const editModal = document.getElementById('editModal');
+        const openEditModalBtn = document.getElementById('openEditModalBtn');
+        const closeEditModalBtn = document.getElementById('closeEditModalBtn');
+        const personalizationForm = document.getElementById('personalizationForm');
+        const resetDefaultsBtn = document.getElementById('resetDefaultsBtn');
+
+        openEditModalBtn.addEventListener('click', () => {
+            document.getElementById('inputPartnerName').value = appData.partnerName;
+            document.getElementById('inputYourName').value = appData.yourName;
+            document.getElementById('inputLetterContent').value = appData.letterContent;
+
+            editModal.classList.remove('hidden');
+            setTimeout(() => editModal.classList.remove('opacity-0'), 10);
+        });
+
+        function closeEditModal() {
+            editModal.classList.add('opacity-0');
+            setTimeout(() => editModal.classList.add('hidden'), 300);
+        }
+
+        closeEditModalBtn.addEventListener('click', closeEditModal);
+
+        personalizationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            appData.partnerName = document.getElementById('inputPartnerName').value.trim() || DEFAULT_DATA.partnerName;
+            appData.yourName = document.getElementById('inputYourName').value.trim() || DEFAULT_DATA.yourName;
+            appData.letterContent = document.getElementById('inputLetterContent').value.trim() || DEFAULT_DATA.letterContent;
+
+            saveData();
+            closeEditModal();
+        });
+
+        resetDefaultsBtn.addEventListener('click', () => {
+            appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+            saveData();
+            closeEditModal();
+        });
+
+
+        // Ambient Sound Synthesizer
+        let isMusicPlaying = false;
+        let musicInterval = null;
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+
+        const relaxNotes = [220.00, 261.63, 293.66, 329.63, 392.00]; // Soft A Minor Pentatonic
+
+        function playAmbientNote(freq) {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.8);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 3.5);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 3.6);
+            } catch (e) {}
+        }
+
+        musicBtn.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                clearInterval(musicInterval);
+                isMusicPlaying = false;
+                musicIcon.className = "fa-solid fa-cloud-moon text-rose-300";
+                musicText.innerText = "Audio Penenang: OFF";
+            } else {
+                isMusicPlaying = true;
+                musicIcon.className = "fa-solid fa-volume-high text-emerald-400 animate-pulse";
+                musicText.innerText = "Audio Penenang: ON ✨";
+
+                let idx = 0;
+                musicInterval = setInterval(() => {
+                    playAmbientNote(relaxNotes[idx]);
+                    idx = (idx + 1) % relaxNotes.length;
+                }, 1000);
+            }
+        });
+
+
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 40;
+                this.size = Math.random() * 8 + 4;
+                this.speedY = Math.random() * 0.8 + 0.3;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.type = Math.random() > 0.5 ? 'sparkle' : 'heart';
+                this.color = `hsla(${Math.random() * 40 + 330}, 80%, 80%, ${this.opacity})`;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                if (this.y < -20) this.reset();
+            }
+
+            draw() {
+                ctx.save();
+                ctx.fillStyle = this.color;
+                ctx.translate(this.x, this.y);
+
+                if (this.type === 'heart') {
+                    ctx.beginPath();
+                    const topHeight = this.size * 0.3;
+                    ctx.moveTo(0, topHeight);
+                    ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topHeight);
+                    ctx.bezierCurveTo(-this.size / 2, (this.size + topHeight) / 2, 0, this.size, 0, this.size);
+                    ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topHeight) / 2, this.size / 2, topHeight);
+                    ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topHeight);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size / 3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        animateCanvas();
+
+
+        window.onload = function() {
+            updateDOM();
+        };
+    </script>
+</body>
+</html>
